@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block b_head %}
+{{super}}
+<title>product</title>
+<link rel="stylesheet" href="{% static 'market/css/product.css' %}">
+
+{% endblock %}
+{% block b_body%}
+
+<h1>{{product.manufacturer}}</h1>
+<h2 id="product_title">{{product.mogel}}</h2>
+  <img src="../../../media/{{product.photo}}" class="img_product"  id="product_photo" alt="">
+  <p id="product_short_description" >{{product.short_description}}</p>
+
+  {{ product.extended_description|safe }}
+  {{ product.characteristics|safe }}
+
+<script src="{% static 'market/js/product.js' %}"></script>
+
+{% endblock %}
+

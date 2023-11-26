@@ -1,0 +1,38 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block b_head %}
+{{super}}
+<title>home</title>
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
+{% endblock %}
+{% block b_body%}
+<div class="home_cards_div">
+
+    {% for n in news %}
+    {% if n.is_published %}
+    <div class="home_card_div">
+      <div class="home_card_div_img">
+        <img src="../../../media/{{n.photo}}" alt="" class="home_card_img" />
+      </div>
+      <div class="home_card_div_body">
+        <div class="home_card_div_title">
+          <h2 class="home_card_title">{{n.title}}</h2>
+        </div>
+        <div class="home_card_div_short_description">
+          <p class="home_card_short_description">{{n.short_description}}</p>
+        </div>
+        <div class="home_card_div_link">
+          <a href="/news/{{n.id}}" class="home_card_a">
+            Подробнее
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %} 
+
+
+<script src="{% static 'home/js/home.js' %}"></script> 
+{% endblock %}

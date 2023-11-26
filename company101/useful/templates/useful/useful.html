@@ -1,0 +1,42 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block b_head %}
+{{super}}
+<title>useful</title>
+<link rel="stylesheet" href="{% static 'useful/css/useful.css' %}">
+{% endblock %}
+{% block b_body%}
+<h1>useful</h1>
+<div class="cube">
+    <div class="topD"></div>
+    <div>
+      <span style="--i:0"></span>
+      <span style="--i:1"></span>
+      <span style="--i:2"></span>
+      <span style="--i:3"></span>
+    </div>
+  
+    <div class="cube2">
+      <div>
+        <span style="--i:0"></span>
+        <span style="--i:1"></span>
+        <span style="--i:2"></span>
+        <span style="--i:3"></span>
+      </div>
+  
+      <div class="cube3">
+        <div class="top3"></div>
+        <div>
+          <span style="--i:0"></span>
+          <span style="--i:1"></span>
+          <span style="--i:2"></span>
+          <span style="--i:3"></span>
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  </div>
+  <script src="{% static 'useful/js/useful.js' %}"></script> 
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+{% csrf_token %}
+<link rel="stylesheet" href="{% static 'home/css/header.css' %}">
+<header>
+
+            
+    <nav id="header_nav">
+
+        
+        <div id="header_logo_menu">
+            <div id="header_div_logo">
+                <img id="header_logo" src="{% static 'home/img/logo.svg' %}" alt="">
+            </div>
+            <div id="header_icon_div">
+                <img  class="header_icon_button" src="{% static 'home/img/menu.svg' %}" alt="">
+            </div>
+        </div>
+        <ul id="header_nav_ui">
+            <li class="header_nav_li" title="перейти на страницу &#8221;Главная&#8221;.">
+                <a href="/">
+                    <img  class="header_icon_button" src="{% static 'home/img/home.svg' %}" alt="">
+                    <span class="desktop_mobile">Главная</span>
+                </a>
+            </li>
+            <li class="header_nav_li" title="перейти на страницу &#8221;О нас&#8221;.">
+                <a href="/about/">
+                    <img  class="header_icon_button" src="{% static 'home/img/about.svg' %}" alt="">
+                    <span class="desktop_mobile">О нас</span>
+                </a>
+            </li>
+            <li class="header_nav_li" title="перейти на страницу &#8221;Магазин&#8221;.">
+                <a href="/market/">
+                    <img  class="header_icon_button" src="{% static 'home/img/market.svg' %}" alt="">
+                    <span class="desktop_mobile">Магазин</span>
+                </a>
+            </li>
+            <li class="header_nav_li" title="перейти на страницу &#8221;Услуги&#8221;.">
+                <a href="/service/">
+                    <img  class="header_icon_button" src="{% static 'home/img/help.svg' %}" alt="">
+                    <span class="desktop_mobile">Услуги</span>
+                </a>
+            </li>
+            <li class="header_nav_li" title="перейти на страницу &#8221;Наши работы&#8221;.">
+                <a href="/works/">
+                    <img  class="header_icon_button" src="{% static 'home/img/our_work.svg' %}" alt="">
+                    <span class="desktop_mobile">Наши работы</span>
+                </a>
+            </li>
+            <li class="header_nav_li" id="header_nav_li_search" title="перейти на страницу &#8221;Поиск&#8221;.">
+                <!-- <a href="/search/"> -->
+                <div id="div_li_a">
+                    <img  class="header_icon_button" src="{% static 'home/img/search.svg' %}" alt="">
+                    <span class="desktop_mobile">Поиск</span>
+                </div>
+                    <!-- </a> -->
+            </li>
+            <li class="header_nav_li" title="перейти на страницу &#8221;Полезное&#8221;.">
+                <a href="/useful/">
+                    <img  class="header_icon_button" src="{% static 'home/img/useful.svg' %}" alt="">
+                    <span class="desktop_mobile">Полезное</span>
+                </a>
+            </li>
+            <li class="header_nav_li" title="перейти на страницу &#8221;Контакты&#8221;.">
+                <a href="/contacts/">
+                    <img  class="header_icon_button" src="{% static 'home/img/phone.svg' %}" alt="">
+                    <span class="desktop_mobile">Контакты</span>
+                </a>
+            </li>
+            
+
+
+        </ul>
+    </nav>
+
+
+    <form id="header_search_form" onsubmit="return false">
+        <input id="header_input_search" maxlength="10" minlength="5"  type="search" placeholder="Search" aria-label="Search">
+        <select name="header_select_search"  id="header_select_search">
+            <option value="all" selected >все</option>
+            <option value="news">новости</option>
+            <option value="product">товары</option>
+            <option value="service">услуги</option>
+          </select>
+        <button id="header_but_search"  type="button">search</button>
+    </form>
+
+    <div id="header_search_form_result">
+        <ul id="header_search_ul_result">
+
+        </ul>
+    </div>
+    
+</header>
+
+<script src="{% static 'home/js/header.js' %}"></script> 

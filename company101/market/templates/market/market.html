@@ -1,0 +1,37 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block b_head %}
+{{super}}
+<title>market</title>
+<link rel="stylesheet" href="{% static 'market/css/market.css' %}">
+{% endblock %}
+{% block b_body%}
+
+<div class="market_cards_div">
+
+    {% for n in product %}
+    {% if n.is_published %}
+    <div class="market_card_div">
+      <div class="market_card_div_img">
+        <img src="../../../media/{{n.photo}}" alt="" class="market_card_img" />
+      </div>
+      <div class="market_card_div_body">
+        <div class="market_card_div_title">
+          <h2 class="market_card_h">{{n.model}}</h2>
+        </div>
+        <div class="market_card_div_content">
+          <p class="market_card_p">{{n.short_description}}</p>
+        </div>
+        <div class="market_card_div_link">
+          <a href="/market/product/{{n.id}}" class="market_card_a">
+            Подробнее
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %} 
+
+    <script src="{% static 'market/js/market.js' %}"></script> 
+{% endblock %}
+

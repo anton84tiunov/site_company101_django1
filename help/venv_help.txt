@@ -1,0 +1,150 @@
+python3 -m venv my_venv
+source my_venv/bin/activate
+source ../my_venv/bin/activate
+pip install django
+
+django-admin startproject company101
+
+cd company101/
+
+python manage.py  runserver
+
+python manage.py migrate
+
+GRANT ALL ON company101_1.* TO "db_company101"@"localhost";
+       
+django-admin startapp home
+django-admin startapp about
+django-admin startapp market
+django-admin startapp service
+django-admin startapp useful
+django-admin startapp works
+django-admin startapp contacts
+django-admin startapp search
+
+python manage.py createsuperuser
+
+anton
+anton.tiunov.84.07@gmail.com
+
+Testo123#
+
+cd company101/
+python manage.py  runserver
+
+
+python manage.py makemigrations
+python manage.py sqlmigrate woman 0001
+python manage.py migrate
+
+
+python manage.py shell
+
+from woman.models import Women
+Women(title='Анджелина Джоли', content='Биография Анджелины Джоли')
+w1 = _
+w1.save()
+w1.id # идентификатор
+w1.title # заголовок
+w1.time_create # время добавления записи
+w1.pk # значение primary key
+
+from django.db import connection
+connection.queries
+w2 = Women(title='Энн Хэтэуэй', content='Биография Энн Хэтэуэй')
+w2.save()
+w3 = Women()
+w3.title = 'Джулия Робертс'
+w3.content = 'Биография Джулии Робертс'
+w3.save()
+
+
+Women.objects
+w4 = Women.objects.create(title='Ума Турман', content='Биография Ума Турман')
+Women.objects.create(title='Кира Найтли', content='Биография Киры Найтли')
+
+
+Women.objects.all()
+exit()
+
+
+python manage.py shell
+from woman.models import Women
+Women.objects.all()
+w = _
+w[0]
+w[0].title
+w[0].content
+len(w)
+for wi in w:
+    print(wi.title)
+Women.objects.filter(title='Энн Хэтэуэй')
+
+from django.db import connection
+connection.queries
+
+Women.objects.filter(title='Энн')
+Women.objects.filter(pk > 2)
+Women.objects.filter(pk__gte=2)
+Women.objects.exclude(pk=2)
+Women.objects.filter(pk=2)
+Women.objects.get(pk=2)
+Women.objects.get(pk__gte=2)
+Women.objects.get(pk=20)
+
+Women.objects.filter(pk__lte=4).order_by('title')
+Women.objects.order_by('title')
+Women.objects.order_by('-time_update')
+
+wu = Women.objects.get(pk=2)
+wu.title = 'Марго Робби'
+wu.content = 'Биография Марго Робби'
+connection.queries
+
+
+wd = Women.objects.filter(pk__gte=4)
+wd.delete()
+
+
+
+
+
+
+
+
+
+
+
+
+{% if "text" in key %}
+<p class="card-text" style="text-overflow: hidden; width: 180px; height: 50px;">{{news.contents[key]}}</p>
+
+{% endif %}
+{% if "img" in key %}
+<img src="./media/{{news.contents[key]}}" id="img_card" class="card-img-top" alt="">
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

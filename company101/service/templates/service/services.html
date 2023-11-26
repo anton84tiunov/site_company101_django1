@@ -1,0 +1,36 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block b_head %}
+{{super}}
+<title>service</title>
+<link rel="stylesheet" href="{% static 'service/css/services.css' %}">
+{% endblock %}
+{% block b_body%}
+
+<div class="service_cards_div">
+
+    {% for n in service %}
+    {% if n.is_published %}
+    <div class="service_card_div">
+      <div class="service_card_div_img">
+        <img src="../../../media/{{n.photo}}" alt="" class="service_card_img" />
+      </div>
+      <div class="service_card_div_body">
+        <div class="service_card_div_title">
+          <h2 class="service_card_h">{{n.name}}</h2>
+        </div>
+        <div class="service_card_div_content">
+          <p class="service_card_p">{{n.short_description}}</p>
+        </div>
+        <div class="service_card_div_link">
+          <a href="/service/service/{{n.id}}" class="service_card_a">
+            Подробнее
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %} 
+
+    <script src="{% static 'service/js/services.js' %}"></script> 
+{% endblock %}

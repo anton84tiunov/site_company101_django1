@@ -1,0 +1,29 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block b_head %}
+{{super}}
+<title>home</title>
+<link rel="stylesheet" href="{% static 'home/css/news.css' %}">
+  <style>
+ {{ news.contents_style|safe }}
+  </style>
+{% endblock %}
+{% block b_body%}
+
+<!-- <h2 id="news_title">{{news.title}}</h2> -->
+  <!-- <img src="../../../media/{{news.photo}}" class="img_news"  id="news_photo" alt="">
+  <p id="news_short_description" >{{news.short_description}}</p> -->
+
+  {{news.content|safe}}
+
+  {{ news.contents|safe }}
+
+
+<script src="{% static 'home/js/home.js' %}"></script>
+
+<script>{{ news.contents_script|safe }}</script>
+{% endblock %}
+{% block b_footer %}
+{{super}}
+{% endblock %}

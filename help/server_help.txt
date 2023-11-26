@@ -1,0 +1,220 @@
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-22-04
+
+
+ssh root@81.200.148.145
+s6Ey?--7KjX6m,
+
+
+adduser anton
+usermod -aG sudo anton
+usermod -aG www-data anton
+
+
+ssh anton@81.200.148.145
+Testo123#
+
+sudo ufw app list
+sudo ufw allow OpenSSH
+sudo ufw status
+sudo ufw enable
+sudo ufw disable 
+
+sudo ufw allow 8080/tcp
+
+sudo apt update
+sudo apt install mysql-server
+
+sudo systemctl start mysql.service
+
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Neqid4|xp@c#';
+exit
+sudo mysql_secure_installation
+
+y
+2
+y...
+
+mysql -u root -p
+CREATE USER 'db_company101'@'localhost' IDENTIFIED BY '#4jQtv*#R2{8';
+create database company101_2;
+GRANT PRIVILEGES ON company101_2.* TO 'db_company101'@'localhost';
+FLUSH PRIVILEGES;
+exit
+mysql -u db_company101 -p
+
+
+
+mkdir sites
+cd sites
+mkdir company101
+cd company101
+
+
+sudo apt install python3-pip python3-venv
+
+python3 -m venv my_venv
+source my_venv/bin/activate
+
+source ../my_venv/bin/activate
+pip install django
+
+
+
+
+django-admin startproject company101
+cd company101
+
+
+django-admin startapp home
+django-admin startapp about
+django-admin startapp market
+django-admin startapp service
+django-admin startapp useful
+django-admin startapp works
+django-admin startapp contacts
+django-admin startapp search
+
+pip install pymysql
+pip install Pillow
+pip install django-json-widget
+pip install gunicorn
+
+python manage.py createsuperuser
+
+anton
+anton.tiunov.84.07@gmail.com
+
+Testo123#
+
+
+sudo ufw allow 8080
+
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py runserver 0.0.0.0:8080
+
+sudo apt install nginx
+sudo ufw app list
+sudo ufw status
+systemctl status nginx
+http://81.200.148.145/
+
+
+python manage.py collectstatic
+python manage.py runserver 0.0.0.0:8080
+
+
+
+
+sudo su
+usermod -aG www-data anton
+
+cat /etc/group | grep www-data
+
+sudo nano /etc/systemd/system/company101.gunicorn.service
+
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=anton
+Group=www-data
+Environment=SECRET_KEY=secret
+WorkingDirectory=/home/anton/sites/company101/company101
+ExecStart=/home/anton/sites/company101/my_venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/anton/sites/company101/company101.server.sock /home/anton/sites/company101/company101/company101.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=anton
+Group=www-data
+WorkingDirectory=/home/anton/sites/company101/company101
+ExecStart=/home/anton/sites/company101/my_venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/company101.gunicorn.socket \
+          company101.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+sudo systemctl enable company101.gunicorn
+sudo systemctl start company101.gunicorn
+
+sudo systemctl status company101.gunicorn
+
+sudo nano /etc/systemd/system/company101.gunicorn.socket
+
+
+
+[Unit]
+Description=company101-gunicorn-socket
+
+[Socket]
+ListenStream=/run/company101.gunicorn.sock  
+
+[Install]
+WantedBy=sockets.target
+
+
+
+
+file /run/company101.gunicorn.sock
+sudo journalctl -u company101.gunicorn.sock
+
+sudo systemctl status company101.gunicorn
+
+curl --unix-socket /run/company101.gunicorn.sock localhost
+
+sudo systemctl daemon-reload
+sudo systemctl restart company101.gunicorn
+sudo systemctl start company101.gunicorn
+sudo ln -sf /etc/nginx/sites-available/company101 /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/company101 /etc/nginx/sites-enabled
+sudo service nginx restart
+
+
+
+sudo nano /etc/nginx/sites-available/company101
+
+server {
+    listen 80;
+    server_name 81.200.148.145;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/anton/sites/company101/company101/;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/company101.gunicorn.sock;
+    }
+}
+
+
+sudo ln -s /etc/nginx/sites-available/company101 /etc/nginx/sites-enabled
+sudo nginx -t
+sudo systemctl restart nginx
+
+python manage.py collectstatic --noinput
+

@@ -1,0 +1,20 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block b_head %}
+{{super}}
+<title>service</title>
+<link rel="stylesheet" href="{% static 'service/css/service.css' %}">
+
+{% endblock %}
+{% block b_body%}
+
+<h2 id="service_title">{{service.name}}</h2>
+  <img src="../../../media/{{service.photo}}" class="img_service"  id="service_photo" alt="">
+  <p id="service_short_description" >{{service.short_description}}</p>
+
+  {{ service.extended_description|safe }}
+
+<script src="{% static 'service/js/service.js' %}"></script>
+
+{% endblock %}
